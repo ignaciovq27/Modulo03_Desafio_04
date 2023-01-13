@@ -70,7 +70,7 @@ btnBuscar.addEventListener("click", (evento) => {
   }
 
   else if ( min.value > max.value) {
-    alert("error en metros ingresados")
+    alert("Error en metros ingresados")
   }
 
   else {
