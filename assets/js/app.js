@@ -65,12 +65,14 @@ const propiedades = [
 btnBuscar.addEventListener("click", (evento) => {
   evento.preventDefault(); //Detener el comportamiento por defecto del submit
 
-  if (min.value == "" || max.value == "" || cantCuartos.value == "") {
+  if (min.value === "" || max.value === "" || cantCuartos.value == "") {
     alert("Faltan campos por llenar")
+    return
   }
 
-  else if ( min.value > max.value) {
+  if (parseInt(min.value) > parseInt(max.value)) {
     alert("Error en metros ingresados")
+    return
   }
 
   else {
@@ -88,23 +90,13 @@ function render() {
       console.log("entró en el filtro");
       contadorPropiedades++;
 
-      //template
-      divPropiedades.innerHTML += `
-        <article class="propiedad">
-          <ahref="/articulo/${propiedad.id}"></a>
-          <h2>${propiedad.nombre}</h2>
-          <img src="${propiedad.src}" alt="">
-          <p><b>Cuartos: </b>${propiedad.cuartos}</p>
-          <p><b>Metros: </b>${propiedad.metros}</p>
-          <p><b>Descripción: </b>${propiedad.descripcion}</p>
-          <p><b>Id: </b>${propiedad.id}</p>
-          <button class="btn btn-info "> Ver más </button>
-        </article>
-      `;
+      //set template
+      setProperties(propiedad)
     }
   }
   console.log("La cantidad de propiedades mostradas son: " + contadorPropiedades);
   totalPropiedades.innerHTML = contadorPropiedades
+
 }
 divPropiedades.innerHTML = html;
 
@@ -119,23 +111,28 @@ btnReset.addEventListener("click", () => {
 function resetFilter() {
   for (let propiedad of propiedades) {
     totalPropiedades.innerHTML = propiedades.length
-    //template
     cantCuartos.value = ""
     min.value = ""
     max.value = ""
 
-    divPropiedades.innerHTML += `
+    //set template
+    setProperties(propiedad)
+  }
+}
+function setProperties(prop) {
+  divPropiedades.innerHTML += `
       <article class="propiedad">
-        <ahref="/articulo/${propiedad.id}"></a>
-        <h2>${propiedad.nombre}</h2>
-        <img src="${propiedad.src}" alt="">
-        <p><b>Cuartos: </b>${propiedad.cuartos}</p>
-        <p><b>Metros: </b>${propiedad.metros}</p>
-        <p><b>Descripción: </b>${propiedad.descripcion}</p>
-        <p><b>Id: </b>${propiedad.id}</p>
+        <ahref="/articulo/${prop.id}"></a>
+        <h2>${prop.nombre}</h2>
+        <img src="${prop.src}" alt="">
+        <p><b>Cuartos: </b>${prop.cuartos}</p>
+        <p><b>Metros: </b>${prop.metros}</p>
+        <p><b>Descripción: </b>${prop.descripcion}</p>
+        <p><b>Id: </b>${prop.id}</p>
         <button class="btn btn-info "> Ver más </button>
       </article>
     `;
-  }
 }
+
+resetFilter()
 
