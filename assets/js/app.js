@@ -104,11 +104,11 @@ divPropiedades.innerHTML = html;
 btnReset.addEventListener("click", () => {
   divPropiedades.innerHTML = "";
   console.log("reset")
-  resetFilter();
+  Filter();
   contadorPropiedades = 0;
 });
 
-function resetFilter() {
+function Filter() {
   for (let propiedad of propiedades) {
     totalPropiedades.innerHTML = propiedades.length
     cantCuartos.value = ""
@@ -134,5 +134,6 @@ function setProperties(prop) {
     `;
 }
 
-resetFilter()
+// iniciar filtro
+Filter()
 
